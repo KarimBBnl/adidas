@@ -1,0 +1,2520 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+  }
+
+  #app {
+    font-family: 'Inter', sans-serif;
+    background: #f5f5f5;
+    min-height: 100vh;
+    color: #0a0a0a
+  }
+
+  .header {
+    background: #0a0a0a;
+    color: #fff;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    position: sticky;
+    top: 0;
+    z-index: 100
+  }
+
+  .logo {
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase
+  }
+
+  .logo span {
+    color: #fff;
+    opacity: 0.4;
+    font-weight: 400
+  }
+
+  .nav {
+    display: flex;
+    gap: 2rem
+  }
+
+  .nav a {
+    color: #fff;
+    opacity: 0.5;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.2s
+  }
+
+  .nav a:hover,
+  .nav a.active {
+    opacity: 1
+  }
+
+  .hero {
+    padding: 3rem 2rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto
+  }
+
+  .hero-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 0.75rem
+  }
+
+  .hero-title {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1.05;
+    letter-spacing: -0.02em
+  }
+
+  .hero-title span {
+    color: #888
+  }
+
+  .grid-section {
+    padding: 1rem 2rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto
+  }
+
+  .grid-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem
+  }
+
+  .grid-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #ddd
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px
+  }
+
+  .product-card {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    padding: 1.25rem 1rem 1rem;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden
+  }
+
+  .product-card:hover {
+    border-color: #0a0a0a;
+    transform: translateY(-3px)
+  }
+
+  .product-card:hover .card-arrow {
+    opacity: 1;
+    transform: translate(0, 0)
+  }
+
+  .card-tag {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 0.75rem
+  }
+
+  .card-img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    border-radius: 2px;
+    margin-bottom: 0.9rem;
+    background: #f0f0f0
+  }
+
+  .img-tall {
+    aspect-ratio: 3/4 !important;
+  }
+
+  .card-name {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 2px
+  }
+
+  .card-sub {
+    font-size: 11px;
+    color: #888;
+    font-weight: 400
+  }
+
+  .card-arrow {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    width: 22px;
+    height: 22px;
+    background: #0a0a0a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translate(4px, 4px);
+    transition: all 0.2s
+  }
+
+  .card-arrow svg {
+    width: 10px;
+    height: 10px;
+    fill: #fff
+  }
+
+  .detail-view {
+    display: none;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem 3rem
+  }
+
+  .detail-view.active {
+    display: block
+  }
+
+  .home-view {
+    display: block
+  }
+
+  .home-view.hidden {
+    display: none
+  }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-bottom: 1.75rem;
+    color: #0a0a0a;
+    background: none;
+    border: 1px solid #e8e8e8;
+    padding: 8px 16px;
+    border-radius: 2px;
+    transition: background 0.15s, border-color 0.15s
+  }
+
+  .back-btn:hover {
+    background: #0a0a0a;
+    color: #fff;
+    border-color: #0a0a0a
+  }
+
+  .detail-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: start
+  }
+
+  @media(max-width:700px) {
+    .detail-cols {
+      grid-template-columns: 1fr
+    }
+  }
+
+  .canvas-col {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden
+  }
+
+  .canvas-img-wrap {
+    position: relative
+  }
+
+  .canvas-img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 3px;
+    display: block
+  }
+
+  .canvas-label {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: #f5f5f5;
+    border-left: 3px solid #0a0a0a
+  }
+
+  .canvas-label p {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 3px
+  }
+
+  .canvas-label strong {
+    font-size: 12px;
+    color: #0a0a0a;
+    font-weight: 700
+  }
+
+  .scan-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none
+  }
+
+  .scan-overlay.active {
+    opacity: 1
+  }
+
+  .scan-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(0, 255, 120, 0.9);
+    box-shadow: 0 0 8px rgba(0, 255, 120, 0.6);
+    animation: scan 1s ease-in-out infinite
+  }
+
+  @keyframes scan {
+    0% {
+      top: 5%
+    }
+
+    100% {
+      top: 95%
+    }
+  }
+
+  .scan-text {
+    position: absolute;
+    bottom: 1rem;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(0, 255, 120, 0.9)
+  }
+
+  .panel-col {
+    display: flex;
+    flex-direction: column;
+    gap: 12px
+  }
+
+  .panel-block {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    padding: 1.25rem
+  }
+
+  .panel-head {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 1rem
+  }
+
+  .product-title-big {
+    font-size: 22px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    line-height: 1.1
+  }
+
+  .product-subtitle {
+    font-size: 12px;
+    color: #888;
+    margin-top: 4px;
+    font-weight: 400
+  }
+
+  .trend-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px
+  }
+
+  .trend-btn {
+    width: 100%;
+    text-align: left;
+    padding: 12px 14px;
+    background: #f8f8f8;
+    border: 1px solid #e8e8e8;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Inter', sans-serif
+  }
+
+  .trend-btn:hover {
+    border-color: #0a0a0a;
+    background: #0a0a0a;
+    color: #fff
+  }
+
+  .trend-btn:hover .trend-meta {
+    color: rgba(255, 255, 255, 0.5)
+  }
+
+  .trend-btn.selected {
+    border-color: #0a0a0a;
+    background: #0a0a0a;
+    color: #fff
+  }
+
+  .trend-btn.selected .trend-meta {
+    color: rgba(255, 255, 255, 0.5)
+  }
+
+  .trend-name {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    display: block
+  }
+
+  .custom-select {
+    width: 100%;
+    padding: 10px 12px;
+    background: #f8f8f8;
+    border: 1px solid #e8e8e8;
+    border-radius: 3px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: #0a0a0a;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    outline: none;
+  }
+
+  .custom-select:hover,
+  .custom-select:focus {
+    border-color: #0a0a0a;
+  }
+
+  .select-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .select-label {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #888;
+  }
+
+  .trend-meta {
+    font-size: 10px;
+    color: #888;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    margin-top: 2px;
+    display: block;
+    transition: color 0.15s
+  }
+
+  .console-box {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    padding: 1.5rem;
+    display: none;
+  }
+
+  .console-box.active {
+    display: block;
+  }
+
+  .console-head {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .console-head::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #0a0a0a;
+    border-radius: 50%;
+  }
+
+  .console-body {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #0a0a0a;
+    font-family: 'Inter', monospace;
+  }
+
+  .console-body .hex {
+    color: #0a0a0a;
+    background: #f5f5f5;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+    border: 1px solid #e8e8e8;
+  }
+
+  .console-body .key {
+    color: #888;
+    font-weight: 600;
+  }
+
+  .reasoning-box {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed #e8e8e8;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .reasoning-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #0a0a0a;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .reasoning-title::before {
+    content: '→';
+    color: #888;
+  }
+
+  .reasoning-text {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  .reasoning-text strong {
+    color: #0a0a0a;
+    font-weight: 700;
+  }
+
+  .prompt-box {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: #f8f8f8;
+    border: 1px dashed #e8e8e8;
+    border-radius: 4px;
+  }
+
+  .prompt-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #0a0a0a;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .prompt-title::before {
+    content: '>>';
+    color: #888;
+  }
+
+  .prompt-text {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.7;
+    user-select: all;
+    font-family: 'Inter', monospace;
+  }
+
+  .prompt-text strong {
+    color: #0a0a0a;
+    font-weight: 700;
+  }
+
+  .color-swatches {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .swatch {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+  }
+
+  .status-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid #e8e8e8;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    background: #0a0a0a;
+    border-radius: 50%;
+  }
+
+  .status-text {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #888;
+  }
+
+  .slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+
+  .slider-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  .slider-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .slider-prev {
+    left: 10px;
+  }
+
+  .slider-next {
+    right: 10px;
+  }
+
+  .slider-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .slider-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .slider-dot.active {
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  .category-filters {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .cat-btn {
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: rgba(0, 0, 0, 0.6);
+    padding: 0.75rem 1.5rem;
+    border-radius: 40px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .cat-btn:hover {
+    border-color: rgba(0, 0, 0, 0.5);
+    color: #000;
+  }
+
+  .cat-btn.active {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+  }
+
+  /* Map Modal CSS */
+  .map-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+  }
+
+  .map-modal.active {
+    display: flex;
+  }
+
+  .map-container {
+    width: 90%;
+    max-width: 600px;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 2.5rem;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    text-align: center;
+  }
+
+  .map-close {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    color: #888;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 28px;
+  }
+
+  .map-close:hover {
+    color: #fff;
+  }
+
+  .map-title {
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 14px;
+    margin-bottom: 2rem;
+    font-weight: 700;
+  }
+
+  .map-visual {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 2/1;
+    border: 1px dashed #333;
+    border-radius: 4px;
+    margin-bottom: 2rem;
+  }
+
+  .map-visual::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg') no-repeat center center;
+    background-size: cover;
+    filter: invert(1) opacity(0.25);
+    z-index: 0;
+  }
+
+  .map-pin {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: #555;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    box-shadow: 0 0 0 4px rgba(85, 85, 85, 0.2);
+    transition: all 0.2s;
+    z-index: 1;
+  }
+
+  .map-pin:hover .pin-tooltip {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .map-pin.active-region {
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2);
+  }
+
+  .map-pin.selected {
+    background: #00ff78;
+    box-shadow: 0 0 15px #00ff78, 0 0 0 4px rgba(0, 255, 120, 0.2);
+  }
+
+  .pin-tooltip {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    color: #fff;
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  /* Map coordinates based on Wikimedia Robinson Projection */
+  .pin-us {
+    top: 35%;
+    left: 18%;
+  }
+
+  .pin-ca {
+    top: 20%;
+    left: 20%;
+  }
+
+  .pin-br {
+    top: 65%;
+    left: 33%;
+  }
+
+  .pin-ar {
+    top: 80%;
+    left: 28%;
+  }
+
+  .pin-es {
+    top: 35%;
+    left: 47%;
+  }
+
+  .pin-uk {
+    top: 25%;
+    left: 45%;
+  }
+
+  .pin-za {
+    top: 75%;
+    left: 54%;
+  }
+
+  .pin-jp {
+    top: 38%;
+    left: 88%;
+  }
+
+  .pin-cn {
+    top: 40%;
+    left: 78%;
+  }
+
+  .pin-au {
+    top: 75%;
+    left: 87%;
+  }
+
+  .map-confirm {
+    width: 100%;
+    padding: 1rem;
+    background: #fff;
+    color: #000;
+    border: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-radius: 4px;
+  }
+
+  .map-confirm:hover {
+    background: #e0e0e0;
+  }
+
+  .map-confirm:disabled {
+    background: #333;
+    color: #555;
+    cursor: not-allowed;
+  }
+
+  @media(max-width:700px) {
+    .detail-cols {
+      grid-template-columns: 1fr;
+    }
+
+    .bottom-tools {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  /* Minimal Loader */
+  .minimal-loader {
+    position: fixed;
+    inset: 0;
+    background: #f5f5f5;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .minimal-loader.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .loader-logo {
+    font-family: 'Inter', sans-serif;
+    color: #0a0a0a;
+  }
+
+  .loader-logo-main {
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+
+  .loader-logo-sub {
+    opacity: 0.4;
+  }
+
+  .loader-line-container {
+    width: 200px;
+    height: 2px;
+    background: #e8e8e8;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .loader-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 30%;
+    background: #0a0a0a;
+    animation: loadLine 1.2s ease-in-out infinite;
+  }
+
+  @keyframes loadLine {
+    0% {
+      transform: translateX(-100%);
+      width: 30%;
+    }
+
+    50% {
+      width: 50%;
+    }
+
+    100% {
+      transform: translateX(333%);
+      width: 30%;
+    }
+  }
+
+  .loader-text {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #888;
+  }
+
+  .trend-chart-box {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+  .trend-chart-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #0a0a0a;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .trend-chart-title::before {
+    content: '?';
+    color: #888;
+    font-size: 14px;
+  }
+  .chart-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 100%;
+  }
+  .growth-anim { width: 100%; height: 100%; overflow: visible; }
+  .growth-line {
+    stroke-dasharray: 500; stroke-dashoffset: 500;
+    animation: drawLine 1.5s ease-out forwards;
+  }
+  .growth-area { opacity: 0; animation: fadeArea 1s ease-out 0.8s forwards; }
+  .growth-dot {
+    opacity: 0; transform: scale(0); transform-origin: 200px 5px;
+    animation: popDot 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.2s forwards;
+  }
+  @keyframes drawLine { to { stroke-dashoffset: 0; } }
+  @keyframes fadeArea { to { opacity: 1; } }
+  @keyframes popDot { to { opacity: 1; transform: scale(1); } }
+  .radar-poly {
+    opacity: 0; transform: scale(0.8); transform-origin: 50px 50px;
+    animation: expandRadar 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  .radar-dot { opacity: 0; animation: fadeArea 0.5s ease 1s forwards; }
+  @keyframes expandRadar { to { opacity: 1; transform: scale(1); } }
+  .eq-chart {
+    display: flex; width: 100%; height: 100%;
+    align-items: flex-end; justify-content: space-around; gap: 10px;
+  }
+  .eq-col {
+    display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1;
+  }
+  .eq-bar-wrap {
+    width: 100%; height: 80px; background: #f5f5f5;
+    border-radius: 2px; display: flex; align-items: flex-end; overflow: hidden;
+  }
+  .eq-bar {
+    width: 100%; background: #0a0a0a; height: 0;
+    transition: height 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .eq-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; color: #888; }
+
+  /* --- TREND CHARTS --- */
+  .chart-container {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px dashed #e8e8e8;
+  }
+  
+  .chart-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    height: 80px;
+    padding: 0 10px;
+  }
+  .c-bar-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+    justify-content: flex-end;
+  }
+  .c-bar-fill {
+    width: 100%;
+    background: #0a0a0a;
+    border-radius: 3px 3px 0 0;
+    transform-origin: bottom;
+    animation: growUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  @keyframes growUp {
+    to { transform: scaleY(1); opacity: 1; }
+  }
+  .c-bar-label { font-size: 9px; color: #888; font-weight: 700; text-transform: uppercase; }
+
+  .chart-line {
+    position: relative;
+    height: 80px;
+    width: 100%;
+    border-bottom: 1px solid #e8e8e8;
+    padding-bottom: 4px;
+  }
+  .c-svg-line {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .c-path {
+    fill: none;
+    stroke: #5F7A4A;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: drawLine 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  @keyframes drawLine {
+    to { stroke-dashoffset: 0; }
+  }
+  .c-marker {
+    fill: #fff;
+    stroke: #5F7A4A;
+    stroke-width: 3;
+    opacity: 0;
+    animation: fadeIn 0.4s 1.5s forwards;
+  }
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  .chart-cyber {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 5px;
+  }
+  .c-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .c-row-label {
+    font-size: 9px;
+    font-weight: 700;
+    color: #888;
+    width: 45px;
+    text-transform: uppercase;
+  }
+  .c-track {
+    flex: 1;
+    height: 6px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .c-fill {
+    height: 100%;
+    border-radius: 4px;
+    transform-origin: left;
+    transform: scaleX(0);
+    animation: loadRight 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  @keyframes loadRight { to { transform: scaleX(1); } }
+
+
+  /* AI Charts CSS */
+  .ai-chart-container {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px dashed #e8e8e8;
+  }
+
+  .ai-chart-label {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #888;
+    margin-bottom: 16px;
+  }
+
+  /* Bar Chart */
+  .ai-bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 70px;
+    padding-top: 15px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  .ai-bar {
+    flex: 1;
+    background: #0a0a0a;
+    border-radius: 3px 3px 0 0;
+    height: 0;
+    animation: barGrow 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: var(--d);
+    position: relative;
+    opacity: 0;
+  }
+
+  .ai-bar-tip {
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    font-weight: 900;
+    color: #0a0a0a;
+    opacity: 0;
+    background: #f8f8f8;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #e8e8e8;
+    animation: fadeInTip 0.4s ease forwards;
+    animation-delay: calc(var(--d) + 0.3s);
+  }
+
+  @keyframes barGrow {
+    0% { height: 0; opacity: 0; }
+    100% { height: var(--h); opacity: 1; }
+  }
+  @keyframes fadeInTip {
+    to { opacity: 1; transform: translateX(-50%) translateY(-4px); }
+  }
+
+  /* Progress Chart */
+  .ai-progress-item {
+    margin-bottom: 12px;
+  }
+  .ai-progress-item:last-child {
+    margin-bottom: 0;
+  }
+  .ai-prog-head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin-bottom: 6px;
+  }
+  .ai-prog-head span:last-child {
+    color: #888;
+  }
+  .ai-prog-track {
+    height: 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .ai-prog-fill {
+    height: 100%;
+    width: 0;
+    background: #0a0a0a;
+    border-radius: 4px;
+    animation: progFill 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: var(--d);
+  }
+  @keyframes progFill {
+    to { width: var(--w); }
+  }
+
+  /* Pulse Chart */
+  .ai-pulse-chart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    height: 60px;
+    position: relative;
+    padding: 10px 0;
+    background: #fcfcfc;
+    border-radius: 6px;
+    border: 1px solid #f0f0f0;
+  }
+  .ai-pulse {
+    flex: 1;
+    max-width: 8px;
+    background: #0a0a0a;
+    border-radius: 4px;
+    height: 4px; 
+    animation: pulseHeight 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: var(--d);
+  }
+  .ai-pulse-glow {
+    position: absolute;
+    right: 10px;
+    top: -12px;
+    font-size: 11px;
+    font-weight: 900;
+    color: #fff;
+    background: #0a0a0a;
+    padding: 3px 8px;
+    border-radius: 12px;
+    opacity: 0;
+    animation: fadeIn 0.4s ease forwards;
+    animation-delay: 0.9s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+  @keyframes pulseHeight {
+    0% { height: 4px; opacity: 0.5; }
+    50% { height: calc(var(--h) + 10%); }
+    100% { height: var(--h); opacity: 1; }
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  /* Trend Charts */
+  .legend-btn {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 20px;
+    border: 1.5px solid; cursor: pointer;
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    transition: opacity .2s, transform .1s;
+    background: transparent;
+    font-family: inherit;
+    color: inherit;
+  }
+  .legend-btn:hover { transform: scale(1.04); }
+  .legend-btn.muted { opacity: .35; }
+
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .metric-card {
+    background: #f8f8f8;
+    border: 1px dashed #e8e8e8;
+    border-radius: 4px;
+    padding: 12px;
+  }
+
+  .metric-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #888; margin-bottom: 4px; }
+  .metric-value { font-size: 20px; font-weight: 900; color: #0a0a0a; line-height: 1; }
+  .metric-delta { font-size: 9px; color: #888; margin-top: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .controls {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 16px; align-items: center;
+  }
+
+  .replay-btn {
+    margin-left: auto; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #888;
+    background: none; border: none; cursor: pointer;
+    padding: 4px 8px; font-family: inherit;
+  }
+  .replay-btn:hover { color: #0a0a0a; }
+
+  .chart-wrapper {
+    position: relative; width: 100%; height: 260px;
+  }
+
+  .axis-labels {
+    display: flex; justify-content: space-between; margin-top: 8px;
+  }
+  .axis-label { font-size: 9px; color: #888; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+
+</style>
+
+
+<div id="app">
+  <header class="header">
+    <div class="logo" style="display:flex; align-items:center;">
+      <img
+        src="https://static.vecteezy.com/system/resources/previews/010/994/291/non_2x/adidas-symbol-logo-white-clothes-design-icon-abstract-football-illustration-with-black-background-free-vector.jpg"
+        alt="Adidas Trendmarket" style="height: 35px; mix-blend-mode: screen;">
+    </div>
+    <nav class="nav">
+      <a href="#" class="active" id="nav-catalog" onclick="goHome()">Catálogo</a>
+      <a href="#" id="nav-lab" style="opacity:0.25;cursor:default">Laboratorio</a>
+      <a href="#" id="nav-collab" onclick="goCollab()">Colaboraciones</a>
+      <a href="#" onclick="openMapModal()" aria-label="Cambiar País" title="Global Trend Radar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"
+          style="vertical-align: middle;">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+          </path>
+        </svg>
+      </a>
+      <a href="#" onclick="return false" id="nav-export" style="opacity:0.25;cursor:default">Exportar</a>
+    </nav>
+  </header>
+
+  <div class="map-modal" id="map-modal">
+    <div class="map-container">
+      <button class="map-close" onclick="closeMapModal()">&times;</button>
+      <div class="map-title">Global Trend Radar — Select Region</div>
+      <div class="map-visual">
+        <div class="map-pin pin-es active-region" onclick="selectMapRegion('es')" id="pin-es">
+          <div class="pin-tooltip">España</div>
+        </div>
+        <div class="map-pin pin-us active-region" onclick="selectMapRegion('en')" id="pin-us">
+          <div class="pin-tooltip">Estados Unidos</div>
+        </div>
+        <div class="map-pin pin-br active-region" onclick="selectMapRegion('pt')" id="pin-br">
+          <div class="pin-tooltip">Brasil</div>
+        </div>
+
+        <div class="map-pin pin-ca active-region" onclick="selectMapRegion('es', 'pin-ca')" id="pin-ca">
+          <div class="pin-tooltip">Canadá (Simulado)</div>
+        </div>
+        <div class="map-pin pin-ar active-region" onclick="selectMapRegion('es', 'pin-ar')" id="pin-ar">
+          <div class="pin-tooltip">Argentina (Simulado)</div>
+        </div>
+        <div class="map-pin pin-uk active-region" onclick="selectMapRegion('es', 'pin-uk')" id="pin-uk">
+          <div class="pin-tooltip">Reino Unido (Simulado)</div>
+        </div>
+        <div class="map-pin pin-za active-region" onclick="selectMapRegion('es', 'pin-za')" id="pin-za">
+          <div class="pin-tooltip">Sudáfrica (Simulado)</div>
+        </div>
+        <div class="map-pin pin-cn active-region" onclick="selectMapRegion('es', 'pin-cn')" id="pin-cn">
+          <div class="pin-tooltip">China (Simulado)</div>
+        </div>
+        <div class="map-pin pin-jp active-region" onclick="selectMapRegion('es', 'pin-jp')" id="pin-jp">
+          <div class="pin-tooltip">Japón (Simulado)</div>
+        </div>
+        <div class="map-pin pin-au active-region" onclick="selectMapRegion('es', 'pin-au')" id="pin-au">
+          <div class="pin-tooltip">Australia (Simulado)</div>
+        </div>
+      </div>
+      <button class="map-confirm" id="map-confirm-btn" onclick="confirmMapRegion()" disabled>Confirmar</button>
+    </div>
+  </div>
+
+  <!-- MINIMAL LOADER -->
+  <div class="minimal-loader" id="minimal-loader">
+    <div class="loader-content">
+      <img src="https://ams3.digitaloceanspaces.com/graffica/2022/12/Adidas-Logo-1971.jpeg" alt="Adidas 1971 Logo" style="height: 110px; object-fit: contain; mix-blend-mode: multiply; margin-bottom: 1.5rem;" />
+      <div class="loader-logo">
+        <span class="loader-logo-main">ADIDAS TRENDMARKET</span>
+        <span class="loader-logo-sub"> // AW2026</span>
+      </div>
+      <div class="loader-line-container">
+        <div class="loader-line"></div>
+      </div>
+      <div class="loader-text" id="loader-text">Analizando mercado...</div>
+    </div>
+  </div>
+
+  <div class="home-view" id="home-view">
+    <section class="hero">
+      <div class="hero-label" id="hero-label">Trendmarket Detector — AW2026</div>
+      <h1 class="hero-title" id="hero-title">Selecciona tu lienzo.<br><span>Descubre el futuro.</span></h1>
+    </section>
+    <section class="grid-section">
+      <div class="category-filters" id="category-filters">
+        <button class="cat-btn active" onclick="filterCategory('zapatillas')">Zapatillas</button>
+        <button class="cat-btn" onclick="filterCategory('camisetas')">Camisetas</button>
+        <button class="cat-btn" onclick="filterCategory('chandales')">Chándales</button>
+      </div>
+      <div class="grid-label" id="grid-label">Base de Zapatillas icónicas — 10 modelos</div>
+      <div class="product-grid" id="product-grid"></div>
+    </section>
+  </div>
+
+  <div class="detail-view" id="detail-view">
+    <button class="back-btn" onclick="goHome()">
+      <svg viewBox="0 0 10 10" width="10" height="10" fill="currentColor">
+        <path d="M6.5 1L2.5 5l4 4" />
+      </svg>
+      <span id="back-btn-text">Volver al catálogo</span>
+    </button>
+    <div class="detail-grid" style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 1.5rem;">
+
+      <!-- FILA 1: Producto y Audiencia -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: stretch;">
+        <div class="panel-block" style="display: flex; flex-direction: column; justify-content: center;">
+          <p class="panel-head" id="product-head">Producto seleccionado</p>
+          <div class="product-title-big" id="detail-name"></div>
+          <div class="product-subtitle" id="detail-sub"></div>
+        </div>
+        <div class="panel-block" id="audience-panel">
+          <p class="panel-head" id="audience-head">Parámetros de Audiencia</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="select-group">
+              <label class="select-label">Edad</label>
+              <select class="custom-select" id="target-age">
+                <option value="genz">Gen Z (16-24 años)</option>
+                <option value="millennial">Millennial (25-40 años)</option>
+                <option value="genx">Gen X (41+ años)</option>
+              </select>
+            </div>
+            <div class="select-group">
+              <label class="select-label">Género</label>
+              <select class="custom-select" id="target-gender">
+                <option value="unisex">Unisex / Neutral</option>
+                <option value="masculino">Masculino</option>
+                <option value="femenino">Femenino</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FILA 2: Tendencias Localizadas -->
+      <div class="panel-block">
+        <p class="panel-head" id="trends-head">Tendencias disponibles — AW2026</p>
+        <div class="trend-list" id="trend-list"
+          style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; flex-direction: row;">
+        </div>
+      </div>
+
+      <!-- FILA 3: Consola -->
+      <div class="panel-block console-box" id="console-box" style="width:100%;">
+        <div class="console-head" id="console-head">Consola de trazabilidad IA</div>
+        <div class="console-body" id="console-body"></div>
+      </div>
+
+      <!-- FILA 4: Lienzo y Diseño Generado -->
+      <div class="detail-cols" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start;">
+        <div class="canvas-col">
+          <p class="panel-head" id="canvas-head">El Lienzo</p>
+          <div class="canvas-img-wrap">
+            <img id="canvas-img" class="canvas-img" src="" alt="Zapatilla seleccionada" />
+            <div class="scan-overlay" id="scan-overlay">
+              <div class="scan-line"></div>
+              <span class="scan-text" id="scan-text">IA procesando...</span>
+            </div>
+          </div>
+          <div class="canvas-label">
+            <p id="canvas-label-title">Regla de diseño</p>
+            <strong id="canvas-label-desc">Estructura base inamovible. Solo alteraciones de material y color.</strong>
+          </div>
+        </div>
+        <div class="canvas-col">
+          <p class="panel-head" id="generated-head">Diseño Generado</p>
+          <div class="canvas-img-wrap" id="generated-wrap"
+            style="background:#f0f0f0; display:flex; align-items:center; justify-content:center; aspect-ratio:1; border-radius:3px; position:relative;">
+            <span
+              style="font-size:11px; color:#888; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; text-align:center;"
+              id="generated-placeholder-text">Selecciona una tendencia<br>para generar</span>
+            <img id="generated-img" class="canvas-img" src="" style="display:none;" alt="Diseño generado" />
+
+            <button id="gen-prev" class="slider-btn slider-prev" onclick="changeGenImg(-1)" style="display:none;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+            <button id="gen-next" class="slider-btn slider-next" onclick="changeGenImg(1)" style="display:none;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
+
+            <div id="gen-dots" class="slider-dots" style="display:none;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="collab-view" id="collab-view"
+    style="display: none; max-width: 1200px; margin: 0 auto; padding: 1.5rem 2rem 3rem;">
+    <p class="panel-head" style="margin-bottom: 2rem;">Hub de Colaboraciones y Eventos</p>
+
+    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: start;">
+
+      <!-- Left Column: Calendar -->
+      <div class="panel-col">
+        <div class="panel-block">
+          <p class="panel-head">Próximas Fechas (AW2026)</p>
+          <div class="collab-list" style="display: flex; flex-direction: column; gap: 1rem;">
+
+            <div class="trend-btn" onclick="selectCollab('badbunny')">
+              <span class="trend-name">Bad Bunny x adidas</span>
+              <span class="trend-meta">Lanzamiento Global · 12 Sep 2026</span>
+            </div>
+
+            <div class="trend-btn" onclick="selectCollab('mundial')">
+              <span class="trend-name">Mundial FIFA Pack</span>
+              <span class="trend-meta">Equipaciones y Lifestyle · 18 Oct 2026</span>
+            </div>
+
+            <div class="trend-btn" onclick="selectCollab('yohji')">
+              <span class="trend-name">Yohji Yamamoto (Y-3)</span>
+              <span class="trend-meta">Semana de la Moda Tokio · 05 Nov 2026</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Canvas / AI Integration -->
+      <div class="panel-col">
+        <div class="canvas-col">
+          <p class="panel-head" style="margin-bottom: 1rem;">Diseño Colaborativo (API Nano Banan - Desconectada)</p>
+          <div class="canvas-img-wrap"
+            style="background:#0a0a0a; display:flex; flex-direction: column; align-items:center; justify-content:center; border-radius:3px; position:relative; min-height: 480px; overflow: hidden; border: 1px solid #333;">
+            <span
+              style="font-size:11px; color:#555; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; text-align:center; position: relative; z-index: 2;"
+              id="collab-placeholder">Selecciona una fecha del calendario<br>para previsualizar el concepto</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+  const products = [
+    { id: 1, category: "zapatillas", name: "Samba", sub: "Originals — 1950", tag: "ICÓNICO", base: "https://cdn.grupoelcorteingles.es/SGFM/dctm/MEDIA03/202505/12/00117731298471____28__1200x1200.jpg", colors: { "blokecore": "https://assets.adidas.com/images/w_600,f_auto,q_auto/IG1024_01_standard.jpg", "gorpcore": "https://assets.adidas.com/images/w_600,f_auto,q_auto/HP7901_01_standard.jpg", "cyberpunk": "https://assets.adidas.com/images/w_600,f_auto,q_auto/HQ6646_01_standard.jpg" } },
+    { id: 2, category: "zapatillas", name: "Gazelle", sub: "Originals — 1968", tag: "CLÁSICO", base: "https://www.nicekicks.com/files/2024/05/adidas-gazelle-indoor-beige-ih5482-0.jpg", colors: { "blokecore": "https://assets.adidas.com/images/w_600,f_auto,q_auto/IG1061_01_standard.jpg", "gorpcore": "https://assets.adidas.com/images/w_600,f_auto,q_auto/GY7338_01_standard.jpg", "cyberpunk": "https://assets.adidas.com/images/w_600,f_auto,q_auto/HQ6893_01_standard.jpg" } },
+    { id: 3, category: "zapatillas", name: "Ultraboost", sub: "Performance — 2015", tag: "TECH", base: "https://assets.adidas.com/images/w_600,f_auto,q_auto/43a39db74ca54e0bb553ec2647180cfe_9366/Zapatilla_Ultraboost_5_Negro_JH9634_01_standard.jpg", colors: { "blokecore": "https://assets.adidas.com/images/w_600,f_auto,q_auto/GY5173_01_standard.jpg", "gorpcore": "https://assets.adidas.com/images/w_600,f_auto,q_auto/HP9092_01_standard.jpg", "cyberpunk": "https://assets.adidas.com/images/w_600,f_auto,q_auto/HQ4199_01_standard.jpg" } },
+    { id: 4, category: "zapatillas", name: "Superstar", sub: "Originals — 1969", tag: "ICÓNICO", base: "https://assets.adidas.com/images/w_600,f_auto,q_auto/1a6c516af64c4832829354533392a713_9366/Zapatilla_Superstar_II_Negro_JI0079_01_standard.jpg", colors: { "blokecore": "https://assets.adidas.com/images/w_600,f_auto,q_auto/IF9995_01_standard.jpg", "gorpcore": "https://assets.adidas.com/images/w_600,f_auto,q_auto/HP6230_01_standard.jpg", "cyberpunk": "https://assets.adidas.com/images/w_600,f_auto,q_auto/HQ8708_01_standard.jpg" } },
+    { id: 5, category: "zapatillas", name: "Forum", sub: "Originals — 1984", tag: "RETRO", base: "https://assets.adidas.com/videos/w_600,f_auto,q_auto/ffac93bcfa894b698f2f71be6912c49b_d98c/Zapatilla_Forum_Low_CL_Blanco_IH7830_video.jpg", colors: { "blokecore": "https://assets.adidas.com/images/w_600,f_auto,q_auto/IF9999_01_standard.jpg", "gorpcore": "https://assets.adidas.com/images/w_600,f_auto,q_auto/HP7777_01_standard.jpg", "cyberpunk": "https://assets.adidas.com/images/w_600,f_auto,q_auto/HQ8888_01_standard.jpg" } },
+    { id: 6, category: "zapatillas", name: "NMD R1", sub: "Originals — 2015", tag: "FUTURE", base: "https://preview.redd.it/what-do-you-think-about-these-shoes-adidas-nmd-r1-based-on-v0-1ogf2gpe0s4a1.jpg?width=1080&crop=smart&auto=webp&s=77be289770ce74a5eb3386c1615d7de58f9ee79d", colors: { "blokecore": "https://assets.adidas.com/images/w_600,f_auto,q_auto/IG1111_01_standard.jpg", "gorpcore": "https://assets.adidas.com/images/w_600,f_auto,q_auto/HP2222_01_standard.jpg", "cyberpunk": "https://assets.adidas.com/images/w_600,f_auto,q_auto/HQ3333_01_standard.jpg" } },
+    { id: 7, category: "zapatillas", name: "Stan Smith", sub: "Originals — 1965", tag: "ICÓNICO", base: "https://assets.adidas.com/images/w_600,f_auto,q_auto/69721f2e7c934d909168a80e00818569_faec/Zapatilla_Stan_Smith_Blanco_M20324_db01_standard.jpg", colors: { "blokecore": "https://assets.adidas.com/images/w_600,f_auto,q_auto/IG4444_01_standard.jpg", "gorpcore": "https://assets.adidas.com/images/w_600,f_auto,q_auto/HP5555_01_standard.jpg", "cyberpunk": "https://assets.adidas.com/images/w_600,f_auto,q_auto/HQ6666_01_standard.jpg" } },
+    { id: 8, category: "zapatillas", name: "Campus", sub: "Originals — 1979", tag: "RETRO", base: "https://cdn-images.farfetch-contents.com/21/50/07/32/21500732_51481180_600.jpg", colors: { "blokecore": "", "gorpcore": "https://assets.adidas.com/images/w_600,f_auto,q_auto/HP8888_01_standard.jpg", "cyberpunk": "https://assets.adidas.com/images/w_600,f_auto,q_auto/HQ9999_01_standard.jpg" } },
+    { id: 9, category: "zapatillas", name: "Handball Spezial", sub: "Originals — 1979", tag: "URBAN", base: "https://imagedelivery.net/AXBOLKJ2nB6B4T-JIYE73g/19366_adidas_originals_handball_spezial_sneaker_adidas_originals_handball_spezial_sneaker_white_rightout/width=538,height=415,quality=90,fit=pad,format=webp", colors: { "blokecore": "https://assets.adidas.com/images/w_600,f_auto,q_auto/IG2222_01_standard.jpg", "gorpcore": "https://assets.adidas.com/images/w_600,f_auto,q_auto/HP3333_01_standard.jpg", "cyberpunk": "https://assets.adidas.com/images/w_600,f_auto,q_auto/HQ4444_01_standard.jpg" } },
+    { id: 10, category: "zapatillas", name: "ZX 8000", sub: "Originals — 1988", tag: "RETRO", base: "https://footdistrict.com/cdn/shop/files/sneakers-adidas-originals-zx-8000-ki1376-0.jpg?v=1774619675&width=2048", colors: { "blokecore": "https://assets.adidas.com/images/w_600,f_auto,q_auto/IG5555_01_standard.jpg", "gorpcore": "https://assets.adidas.com/images/w_600,f_auto,q_auto/HP6666_01_standard.jpg", "cyberpunk": "https://assets.adidas.com/images/w_600,f_auto,q_auto/HQ7777_01_standard.jpg" } },
+    { id: 11, category: "camisetas", name: "Camiseta 3-Stripes", sub: "Originals", tag: "CLÁSICO", base: "https://img01.ztat.net/article/spp-media-p1/1ef8d16d726048388a1e99bae16cb09b/f834b9353bda408da936148d4b08618e.jpg?imwidth=762&filter=packshot", colors: {} },
+    { id: 12, category: "camisetas", name: "Camiseta R. Madrid", sub: "Performance", tag: "TECH", base: "https://static.futbolfactory.es/products/250485_4.webp", colors: {} },
+    { id: 13, category: "camisetas", name: "Camiseta Messi 10", sub: "Sportswear", tag: "ICÓNICO", base: "https://m.media-amazon.com/images/I/51GwZbxGtgL._AC_UY900_.jpg", colors: {} },
+    { id: 14, category: "camisetas", name: "Camiseta Terrex", sub: "Outdoor", tag: "OUTDOOR", base: "https://cdn.deporvillage.com/cdn-cgi/image/h=785,w=628,dpr=2,f=auto,q=75,fit=contain,background=white/product-vertical/ad-JI9234_001.jpg", colors: {} },
+    { id: 15, category: "camisetas", name: "Polo Vintage", sub: "Originals — 70s", tag: "RETRO", base: "https://img01.ztat.net/article/spp-media-p1/dfb35d420e7a4491b6362d33c35d425f/f3b6428958cc46d3bcb00f503a54c9f9.jpg?imwidth=1800&filter=packshot", colors: {} },
+    { id: 16, category: "chandales", name: "Chandal Beckenbauer", sub: "Originals", tag: "ICÓNICO", base: "https://img01.ztat.net/article/spp-media-p1/913d3e42729e4c0ab40a21c9f0f53043/79172e1a26f8434fa98c56ff92865a0c.jpg?imwidth=1800&filter=packshot", colors: {} },
+    { id: 17, category: "chandales", name: "Chandal Firebird", sub: "Originals", tag: "RETRO", base: "https://img01.ztat.net/article/spp-media-p1/edee712186a245dea9b90a97a6cbfc46/e50e239acef94f4dadf67d9c93690aa8.jpg?imwidth=1800&filter=packshot", colors: {} },
+    { id: 18, category: "chandales", name: "Chandal Tiro 24", sub: "Performance", tag: "TECH", base: "https://cdn.blazimg.com/300/product/a/d/adidas_ij9959_1_apparel_photography_front_view_white.webp", colors: {} },
+    { id: 19, category: "chandales", name: "Chandal SST", sub: "Originals", tag: "CLÁSICO", base: "https://www.yoox.com/images/items/10/10275847XK_14_f.jpg?impolicy=crop&width=387&height=490", colors: {} },
+    { id: 20, category: "chandales", name: "Chandal Z.N.E.", sub: "Sportswear", tag: "FUTURE", base: "https://images.stockx.com/images/adidas-ZNE-Full-Zip-Hooded-Track-Jacket-Metal-Grey.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&q=90&dpr=2&trim=color&updated_at=1764447091", colors: {} }
+  ];
+
+  const countryTrends = {
+    es: [
+      {
+        id: "blokecore", name: "Blokecore Nostálgico", meta: "Fútbol callejero · Años 90 · España",
+        swatches: ["#2C5282", "#E53E3E", "#FFFDE7", "#4A5568"],
+        console: `<span class="key">Tendencia aplicada:</span> <strong>Blokecore Nostálgico</strong>\n\nExtraídos colores del archivo de equipos en España:\n<span class="hex">#2C5282</span> Azul vintage · <span class="hex">#E53E3E</span> Rojo pasión · <span class="hex">#FFFDE7</span> Crema desgastado\n\nTexturas detectadas: Ripstop de nylon. Compatibilidad con silueta: <span class="hex">98.4%</span>\n\n<span class="key">Target consumer:</span> Gen-Z urbano, coleccionista vintage futbolístico, 18–28 años.`,
+        reasoning: `<strong>Patrón detectado en algoritmos de RRSS:</strong> Durante los últimos 30 días, el hashtag #RetroFootballFits ha experimentado un aumento del <strong>420% en interacciones en TikTok y Shorts</strong>, impulsado por el inminente mundial de fútbol callejero y la nostalgia por los 90s. En <strong>Pinterest</strong>, las búsquedas de 'Jerseys clásicos casuales' han subido un 850%.`,
+        prompt: `Aplica la estética Blokecore de los años 90 sobre la zapatilla. Céntrate en texturas de ripstop de nylon, acabados de fútbol retro y los colores #2C5282 (Azul), #E53E3E (Rojo) y #FFFDE7 (Crema).<br><br><strong>IMPORTANTE: NO alterar bajo ninguna circunstancia la estructura base, volúmenes ni silueta general de la zapatilla. Modificar ÚNICAMENTE colores y texturas de la superficie original.</strong>`
+      },
+      {
+        id: "gorpcore", name: "Gorpcore Pirenaico", meta: "Trail · Sostenible · Norte de España",
+        swatches: ["#8B5A2B", "#5F7A4A", "#C4A882", "#3D5A3E"],
+        console: `<span class="key">Tendencia aplicada:</span> <strong>Gorpcore Pirenaico</strong>\n\nExtraídos colores inspirados en paisajes del norte de España:\n<span class="hex">#8B5A2B</span> Tierra micelio · <span class="hex">#5F7A4A</span> Musgo alpino · <span class="hex">#C4A882</span> Arena glaciar\n\nTexturas detectadas: Cordura® reciclado. <span class="hex">87% materiales reciclados</span> proyectados.\n\n<span class="key">Target consumer:</span> Hiker urbano local, consumidor eco-consciente, 25–40 años.`,
+        reasoning: `<strong>Patrón detectado en algoritmos de RRSS:</strong> La reciente Cumbre Global sobre el Clima ha disparado drásticamente la conciencia ambiental. Los vlogs de 'Urban Hiking' en <strong>YouTube</strong> acumulan más de <strong>6.5 millones de views</strong> este mes, mientras los tableros de <strong>Pinterest</strong> 'Funcional + Sostenible' crecieron un 620%.`,
+        prompt: `Aplica la estética Gorpcore Pirenaico y Outdoor a la zapatilla. Incorpora materiales híper-técnicos como Cordura reciclado usando colores tierra: #8B5A2B (Tierra micelio), #5F7A4A (Musgo) y #C4A882 (Arena).<br><br><strong>IMPORTANTE: NO alterar bajo ninguna circunstancia la estructura base, volúmenes ni silueta general de la zapatilla. Modificar ÚNICAMENTE colores y texturas de la superficie original.</strong>`
+      },
+      {
+        id: "cyberpunk", name: "Madrid Neón Urbano", meta: "Techwear · Noches de Madrid · Trap",
+        swatches: ["#1A1A2E", "#E94560", "#00D4AA", "#4A00E0"],
+        console: `<span class="key">Tendencia aplicada:</span> <strong>Madrid Neón Urbano</strong>\n\nExtraídos valores cromáticos de la escena club y trap madrileña:\n<span class="hex">#1A1A2E</span> Void negro · <span class="hex">#E94560</span> Neón coral · <span class="hex">#00D4AA</span> Plasma cian\n\nTexturas detectadas: TPU, tejido reflectante. Módulos LED: <span class="hex">COMPATIBLE</span>\n\n<span class="key">Target consumer:</span> Streetwear de influencia musical, 16–30 años.`,
+        reasoning: `<strong>Patrón detectado en algoritmos de RRSS:</strong> La cultura de E-Sports nocturnos ha provocado un pico sin precedentes en la estética tech-nocturna. Las métricas de <strong>Instagram y TikTok</strong> muestran más de <strong>8 millones de interacciones</strong> en 'Reflective Night Outfits'. En <strong>Pinterest</strong>, 'Distopía Urbana' avala la demanda de tonos neón.`,
+        prompt: `Aplica un diseño Techwear de alto contraste y Neón Cyberpunk. Usa superficies reflectantes 3M, TPU negro (#1A1A2E), toques Neón coral (#E94560) y cian (#00D4AA).<br><br><strong>IMPORTANTE: NO alterar bajo ninguna circunstancia la estructura base, volúmenes ni silueta general de la zapatilla. Modificar ÚNICAMENTE colores y texturas de la superficie original.</strong>`
+      }
+    ],
+    en: [
+      {
+        id: "blokecore", name: "Varsity Archives", meta: "College Sports · 90s Vintage · US Campus",
+        swatches: ["#2C5282", "#E53E3E", "#FFFDE7", "#4A5568"],
+        console: `<span class="key">Trend applied:</span> <strong>Varsity Archives</strong>\n\nExtracted colors from 90s college sports archives in the US:\n<span class="hex">#2C5282</span> Varsity Navy · <span class="hex">#E53E3E</span> Crimson Red · <span class="hex">#FFFDE7</span> Vintage Cream\n\nTextures detected: Heavy cotton, chenille embroidery. Silhouette compatibility: <span class="hex">98.4%</span>\n\n<span class="key">Target consumer:</span> US Urban Gen-Z, thrift collector, 18–28 years.`,
+        reasoning: `<strong>Algorithm Pattern Detected:</strong> Over the past 30 days, #VarsityVintage has seen a <strong>420% spike in TikTok interactions</strong>, fueled by upcoming global street sports championships. On <strong>Pinterest</strong>, searches for '90s College Aesthetics' have skyrocketed by 850%.`,
+        prompt: `Redesign the sneaker utilizing a 90s Varsity Blokecore aesthetic. Focus on integrating heavy cotton textures, chenille embroidery accents, and the colors #2C5282 (Navy), #E53E3E (Crimson), and #FFFDE7 (Cream).<br><br><strong>IMPORTANT: DO NOT alter the base structure, volumes, or original silhouette of the sneaker under any circumstances. ONLY change surface colors and textures.</strong>`
+      },
+      {
+        id: "gorpcore", name: "PNW Gorpcore", meta: "Trail · Recycled · Pacific Northwest",
+        swatches: ["#8B5A2B", "#5F7A4A", "#C4A882", "#3D5A3E"],
+        console: `<span class="key">Trend applied:</span> <strong>PNW Gorpcore</strong>\n\nEarth tones extracted from PNW outdoor moodboards:\n<span class="hex">#8B5A2B</span> Trail Dirt · <span class="hex">#5F7A4A</span> Evergreen · <span class="hex">#C4A882</span> Sandstone\n\nTextures detected: Post-consumer recycled Cordura®. <span class="hex">87% recycled materials</span> projected.\n\n<span class="key">Target consumer:</span> Tech-bro hiker, eco-conscious, 25–40 years.`,
+        reasoning: `<strong>Algorithm Pattern Detected:</strong> Environmental awareness has heavily shifted consumption. This month, 'Urban Hiking' vlogs aggregated over <strong>6.5M YouTube views</strong>, while <strong>Pinterest</strong> boards labeled 'Sustainable Outerwear' grew by 620%.`,
+        prompt: `Apply a PNW Gorpcore trend to the sneaker. Utilize technical, sustainable materials like post-consumer recycled Cordura. Incorporate earth tones: #8B5A2B (Dirt), #5F7A4A (Evergreen), and #C4A882 (Sandstone).<br><br><strong>IMPORTANT: DO NOT alter the base structure, volumes, or original silhouette of the sneaker under any circumstances. ONLY change surface colors and textures.</strong>`
+      },
+      {
+        id: "cyberpunk", name: "NY Neo-Cyberpunk", meta: "Techwear · Dystopian NY · Night reflectives",
+        swatches: ["#1A1A2E", "#E94560", "#00D4AA", "#4A00E0"],
+        console: `<span class="key">Trend applied:</span> <strong>NY Neo-Cyberpunk</strong>\n\nChromatic values extracted from NYC nights:\n<span class="hex">#1A1A2E</span> Void Black · <span class="hex">#E94560</span> Neon Coral · <span class="hex">#00D4AA</span> Cyan Plasma\n\nTextures detected: Thermoformed TPU, 3M™ reflective. LED Modules: <span class="hex">COMPATIBLE</span>\n\n<span class="key">Target consumer:</span> Streetwear enthusiast, 16–30 years.`,
+        reasoning: `<strong>Algorithm Pattern Detected:</strong> E-Sports and night tech festivals have triggered a peak in nocturnal styles. <strong>TikTok</strong> reports over <strong>8 million engagements</strong> for 'Reflective Outfits', while Pinterest's 'Dystopian NY' validates the neo-colorway.`,
+        prompt: `Apply a Neo-Cyberpunk and nocturnal Techwear aesthetic. Use high contrasts with thermoformed TPU textures, 3M reflective fabrics. Strict palette: #1A1A2E (Void Black), #E94560 (Neon Coral), and #00D4AA (Cyan).<br><br><strong>IMPORTANT: DO NOT alter the base structure, volumes, or original silhouette of the sneaker under any circumstances. ONLY change surface colors and textures.</strong>`
+      }
+    ],
+    pt: [
+      {
+        id: "blokecore", name: "Blokecore Vázea", meta: "Futebol de rua · Anos 90 · Brasilidade",
+        swatches: ["#2C5282", "#E53E3E", "#FFFDE7", "#4A5568"],
+        console: `<span class="key">Tendência aplicada:</span> <strong>Blokecore Vázea</strong>\n\nCores extraídas dos arquivos de camisas clássicas do Brasil:\n<span class="hex">#2C5282</span> Azul clássico · <span class="hex">#E53E3E</span> Vermelho raça · <span class="hex">#FFFDE7</span> Creme envelhecido\n\nTexturas: Nylon e bordados densos. Compatibilidade: <span class="hex">98.4%</span>\n\n<span class="key">Público-alvo:</span> Geração-Z urbano carioca/paulista, 18–28 anos.`,
+        reasoning: `<strong>Padrão Detectado:</strong> Nos últimos 30 dias, a tag #RetroFut aumentou <strong>420% em interações no TikTok</strong>, impulsionado pelos campeonatos de várzea e a nostalgia 90s. No <strong>Pinterest</strong>, buscas por 'Jerseys Clássicos' subiram 850%.`,
+        prompt: `Gerar um design usando a estética Blokecore dos anos 90 da Vázea. Focar em integrar texturas de nylon, bordados densos e as cores #2C5282 (Azul), #E53E3E (Vermelho) e #FFFDE7 (Creme).<br><br><strong>IMPORTANTE: NÃO altere sob nenhuma circunstância a estrutura base, volumes ou silhueta geral do tênis. Modifique APENAS as cores e texturas da superfície original.</strong>`
+      },
+      {
+        id: "gorpcore", name: "Trilha Tropical", meta: "Mata Atlântica · Sustentável · Funcional",
+        swatches: ["#8B5A2B", "#5F7A4A", "#C4A882", "#3D5A3E"],
+        console: `<span class="key">Tendência aplicada:</span> <strong>Trilha Tropical</strong>\n\nTons terrosos baseados na biodiversidade brasileira:\n<span class="hex">#8B5A2B</span> Terra roxa · <span class="hex">#5F7A4A</span> Verde folhagem · <span class="hex">#C4A882</span> Areia de duna\n\nMateriais: Cordura® reciclado. <span class="hex">87% materiais reciclados</span>.\n\n<span class="key">Público-alvo:</span> Aventureiro tropical, ecologicamente consciente, 25–40 anos.`,
+        reasoning: `<strong>Padrão Detectado:</strong> A Cúpula Global do Clima impulsionou a moda de rua verde. Vlogs de 'Trilha Urbana' no <strong>YouTube</strong> passaram de <strong>6,5 milhões de views</strong>. No Pinterest 'Funcional + Sustentável' tem alta de 620%.`,
+        prompt: `Gerar um design aplicando a tendência Gorpcore (Trilha Tropical). Usar materiais sustentáveis e tons terrosos: #8B5A2B (Terra), #5F7A4A (Verde folhagem) e #C4A882 (Areia).<br><br><strong>IMPORTANTE: NÃO altere sob nenhuma circunstância a estrutura base, volumes ou silhueta geral do tênis. Modifique APENAS as cores e texturas da superfície original.</strong>`
+      },
+      {
+        id: "cyberpunk", name: "Baile Funk Cyber", meta: "Techwear · Fluxo Neón · Noturno",
+        swatches: ["#1A1A2E", "#E94560", "#00D4AA", "#4A00E0"],
+        console: `<span class="key">Tendência aplicada:</span> <strong>Baile Funk Cyber</strong>\n\nCores extraídas da estética dos bailes de SP e RJ:\n<span class="hex">#1A1A2E</span> Preto asfalto · <span class="hex">#E94560</span> Neon funk · <span class="hex">#00D4AA</span> Ciano flux\n\nTecidos: TPU termoformado, refletivo 3M™. LED: <span class="hex">COMPATÍVEL</span>\n\n<span class="key">Público-alvo:</span> Cultura de rua noturna, frequentador de fluxo, 16–30 anos.`,
+        reasoning: `<strong>Padrão Detectado:</strong> O boom de megafestivais e E-Sports impulsionou a estética noturna. <strong>Instagram e TikTok</strong> somam <strong>8 milhões de interações</strong> em 'Refletivos Noturnos', apoiado pelas tendências neon do Pinterest.`,
+        prompt: `Aplicar a estética Cyberpunk Techwear dos bailes noturnos. Alto contraste com tecidos refletivos 3M. Paleta estrita: #1A1A2E (Preto), #E94560 (Neon funk) e #00D4AA (Ciano flux).<br><br><strong>IMPORTANTE: NÃO altere sob nenhuma circunstância a estrutura base, volumes ou silhueta geral do tênis. Modifique APENAS as cores e texturas da superfície original.</strong>`
+      }
+    ]
+  };
+
+  const translations = {
+    es: {
+      navCatalog: "Catálogo",
+      navLab: "Laboratorio",
+      navExport: "Exportar",
+      heroLabel: "Trendmarket Detector — AW2026",
+      heroTitle: "Selecciona tu lienzo.<br><span>Descubre el futuro.</span>",
+      gridLabel: "Base de productos icónicos — 20 modelos",
+      backBtn: "Volver al catálogo",
+      canvasHead: "El Lienzo",
+      canvasLabelTitle: "Regla de diseño",
+      canvasLabelDesc: "Estructura base inamovible. Solo alteraciones de material y color.",
+      scanText: "IA procesando...",
+      productHead: "Producto seleccionado",
+      trendsHead: "Tendencias localizadas — AW2026",
+      consoleHead: "Consola de trazabilidad IA",
+      audienceHead: "Parámetros de Audiencia",
+      statusCompleted: "Proceso completado · Listo para exportar a PLM",
+      reasoningTitle: "Análisis de Origen y Predicción",
+      promptTitle: "Prompt de Generación IA",
+      countryIndicator: " | 🇪🇸 Detectado: España",
+      tags: { "ICÓNICO": "ICÓNICO", "CLÁSICO": "CLÁSICO", "TECH": "TECH", "RETRO": "RETRO", "FUTURE": "FUTURE", "URBAN": "URBAN", "Y2K": "Y2K", "CHUNKY": "CHUNKY", "OUTDOOR": "OUTDOOR", "SPEED": "SPEED", "HERITAGE": "HERITAGE", "REISSUE": "REISSUE" }
+    },
+    en: {
+      navCatalog: "Catalog",
+      navLab: "Laboratory",
+      navExport: "Export",
+      heroLabel: "Trendmarket Detector — AW2026",
+      heroTitle: "Select your canvas.<br><span>Discover the future.</span>",
+      gridLabel: "Base of iconic products — 20 models",
+      backBtn: "Back to catalog",
+      canvasHead: "The Canvas",
+      canvasLabelTitle: "Design rule",
+      canvasLabelDesc: "Immutable base structure. Only material and color alterations.",
+      scanText: "AI processing...",
+      productHead: "Selected Product",
+      trendsHead: "Localized trends — AW2026",
+      consoleHead: "AI traceability console",
+      audienceHead: "Audience Parameters",
+      statusCompleted: "Process completed · Ready for PLM export",
+      reasoningTitle: "Origin Analysis and Prediction",
+      promptTitle: "AI Generation Prompt",
+      countryIndicator: " | 🇺🇸 Detected: United States",
+      tags: { "ICÓNICO": "ICONIC", "CLÁSICO": "CLASSIC", "TECH": "TECH", "RETRO": "RETRO", "FUTURE": "FUTURE", "URBAN": "URBAN", "Y2K": "Y2K", "CHUNKY": "CHUNKY", "OUTDOOR": "OUTDOOR", "SPEED": "SPEED", "HERITAGE": "HERITAGE", "REISSUE": "REISSUE" }
+    },
+    pt: {
+      navCatalog: "Catálogo",
+      navLab: "Laboratório",
+      navExport: "Exportar",
+      heroLabel: "Trendmarket Detector — AW2026",
+      heroTitle: "Selecione sua tela.<br><span>Descubra o futuro.</span>",
+      gridLabel: "Base de produtos icônicos — 20 modelos",
+      backBtn: "Voltar ao catálogo",
+      canvasHead: "A Tela",
+      canvasLabelTitle: "Regra de design",
+      canvasLabelDesc: "Estrutura base inamovível. Apenas alterações de material e cor.",
+      scanText: "IA processando...",
+      productHead: "Produto selecionado",
+      trendsHead: "Tendências localizadas — AW2026",
+      consoleHead: "Console de rastreabilidade IA",
+      audienceHead: "Parâmetros de Audiência",
+      statusCompleted: "Process concluído · Pronto para exportar para PLM",
+      reasoningTitle: "Análise de Origem e Previsão",
+      promptTitle: "Prompt de Geração IA",
+      countryIndicator: " | 🇧🇷 Detectado: Brasil",
+      tags: { "ICÓNICO": "ICÔNICO", "CLÁSICO": "CLÁSSICO", "TECH": "TECH", "RETRO": "RETRO", "FUTURE": "FUTURE", "URBAN": "URBAN", "Y2K": "Y2K", "CHUNKY": "CHUNKY", "OUTDOOR": "OUTDOOR", "SPEED": "SPEED", "HERITAGE": "HERITAGE", "REISSUE": "REISSUE" }
+    }
+  };
+
+  let currentLang = 'es';
+  let trends = countryTrends[currentLang];
+  let currentProduct = null;
+  let currentTrend = null;
+  let scanning = false;
+
+  let validGenImages = [];
+  let currentGenIdx = 0;
+
+  function changeGenImg(dir) {
+    if (validGenImages.length === 0) return;
+    currentGenIdx += dir;
+    if (currentGenIdx >= validGenImages.length) currentGenIdx = 0;
+    if (currentGenIdx < 0) currentGenIdx = validGenImages.length - 1;
+    updateGenDisplay();
+  }
+
+  function updateGenDisplay() {
+    if (validGenImages.length === 0) return;
+    document.getElementById('generated-img').src = validGenImages[currentGenIdx];
+
+    const dots = document.getElementById('gen-dots').children;
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].className = i === currentGenIdx ? 'slider-dot active' : 'slider-dot';
+    }
+
+    const showControls = validGenImages.length > 1;
+    document.getElementById('gen-prev').style.display = showControls ? 'flex' : 'none';
+    document.getElementById('gen-next').style.display = showControls ? 'flex' : 'none';
+    document.getElementById('gen-dots').style.display = showControls ? 'flex' : 'none';
+  }
+
+  let pendingLang = null;
+
+  function initLanguage() {
+    currentLang = 'es'; // Default to Spain without IP check
+    applyTranslations();
+    trends = countryTrends[currentLang];
+    renderGrid();
+  }
+
+  function openMapModal() {
+    pendingLang = null;
+    document.querySelectorAll('.map-pin').forEach(pin => pin.classList.remove('selected'));
+    document.getElementById('map-confirm-btn').disabled = true;
+    document.getElementById('map-modal').classList.add('active');
+  }
+
+  function closeMapModal() {
+    document.getElementById('map-modal').classList.remove('active');
+  }
+
+  function selectMapRegion(langCode, clickedId) {
+    pendingLang = langCode;
+    document.querySelectorAll('.map-pin').forEach(pin => pin.classList.remove('selected'));
+
+    let pinId = clickedId || 'pin-es';
+    if (!clickedId) {
+      if (langCode === 'en') pinId = 'pin-us';
+      if (langCode === 'pt') pinId = 'pin-br';
+    }
+
+    document.getElementById(pinId).classList.add('selected');
+    document.getElementById('map-confirm-btn').disabled = false;
+  }
+
+  function confirmMapRegion() {
+    if (!pendingLang) return;
+    currentLang = pendingLang;
+    applyTranslations();
+    trends = countryTrends[currentLang];
+
+    if (document.getElementById('detail-view').classList.contains('active')) {
+      renderTrends();
+      const genImg = document.getElementById('generated-img');
+      const genText = document.getElementById('generated-placeholder-text');
+      genImg.style.display = 'none';
+      genText.style.display = 'block';
+      genText.innerHTML = 'Selecciona una tendencia<br>para generar';
+      document.getElementById('gen-prev').style.display = 'none';
+      document.getElementById('gen-next').style.display = 'none';
+      document.getElementById('gen-dots').style.display = 'none';
+      document.getElementById('console-box').classList.remove('active');
+      currentTrend = null;
+    } else {
+      renderGrid();
+    }
+    closeMapModal();
+  }
+
+  function applyTranslations() {
+    const t = translations[currentLang];
+    document.getElementById('nav-catalog').textContent = t.navCatalog;
+    document.getElementById('nav-lab').textContent = t.navLab;
+    document.getElementById('nav-export').textContent = t.navExport;
+
+    document.getElementById('hero-label').innerHTML = t.heroLabel + '<span style="color:#00ff78; opacity:0.8; font-weight:700;">' + t.countryIndicator + '</span>';
+
+    document.getElementById('hero-title').innerHTML = t.heroTitle;
+    document.getElementById('grid-label').textContent = t.gridLabel;
+    document.getElementById('back-btn-text').textContent = t.backBtn;
+    document.getElementById('canvas-head').textContent = t.canvasHead;
+    document.getElementById('canvas-label-title').textContent = t.canvasLabelTitle;
+    document.getElementById('canvas-label-desc').textContent = t.canvasLabelDesc;
+    document.getElementById('scan-text').textContent = t.scanText;
+    document.getElementById('product-head').textContent = t.productHead;
+    document.getElementById('trends-head').textContent = t.trendsHead;
+    document.getElementById('console-head').textContent = t.consoleHead;
+    if (document.getElementById('audience-head')) {
+      document.getElementById('audience-head').textContent = t.audienceHead;
+    }
+  }
+
+  let currentCategory = 'zapatillas';
+
+  function filterCategory(cat) {
+    currentCategory = cat;
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+      if (btn.getAttribute('onclick').includes(cat)) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    const count = products.filter(p => p.category === cat).length;
+    let labelCat = '';
+    if (cat === 'zapatillas') labelCat = 'Zapatillas icónicas';
+    else if (cat === 'camisetas') labelCat = 'Camisetas';
+    else labelCat = 'Chándales';
+
+    const lbl = document.getElementById('grid-label');
+    if (lbl) lbl.textContent = `Base de ${labelCat} — ${count} modelos`;
+
+    renderGrid();
+  }
+
+  function renderGrid() {
+    const grid = document.getElementById('product-grid');
+    const filteredProducts = products.filter(p => p.category === currentCategory);
+    grid.innerHTML = filteredProducts.map(p => `
+    <div class="product-card" onclick="selectProduct(${p.id})">
+      <div class="card-tag">${translations[currentLang].tags[p.tag] || p.tag}</div>
+      <img class="card-img ${p.category !== 'zapatillas' ? 'img-tall' : ''}" src="${p.base}" alt="${p.name}" loading="lazy" />
+      <div class="card-name">${p.name}</div>
+      <div class="card-sub">${p.sub}</div>
+      <div class="card-arrow"><svg viewBox="0 0 10 10"><path d="M2 5h6M5 2l3 3-3 3" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+    </div>
+  `).join('');
+  }
+
+  function selectProduct(id) {
+    currentProduct = products.find(p => p.id === id);
+    currentTrend = null;
+
+    const loader = document.getElementById('minimal-loader');
+    const loaderText = document.getElementById('loader-text');
+    loader.classList.add('active');
+
+    if (currentLang === 'en') loaderText.innerText = "Analyzing market...";
+    else if (currentLang === 'pt') loaderText.innerText = "Analisando mercado...";
+    else loaderText.innerText = "Analizando mercado...";
+
+    setTimeout(() => {
+      if (currentLang === 'en') loaderText.innerText = "Extracting trends...";
+      else if (currentLang === 'pt') loaderText.innerText = "Extraindo tendencias...";
+      else loaderText.innerText = "Extrayendo tendencias...";
+    }, 800);
+
+    setTimeout(() => {
+      loader.classList.remove('active');
+
+      document.getElementById('home-view').classList.add('hidden');
+      document.getElementById('collab-view').style.display = 'none';
+      document.getElementById('detail-view').classList.add('active');
+      document.getElementById('nav-catalog').classList.remove('active');
+      document.getElementById('nav-collab').classList.remove('active');
+      document.getElementById('nav-lab').classList.add('active');
+      document.getElementById('canvas-img').src = currentProduct.base;
+      document.getElementById('detail-name').textContent = currentProduct.name;
+      document.getElementById('detail-sub').textContent = currentProduct.sub;
+      document.getElementById('console-box').classList.remove('active');
+
+      const genImg = document.getElementById('generated-img');
+      const canvasImg = document.getElementById('canvas-img');
+      const genWrap = document.getElementById('generated-wrap');
+
+      if (currentProduct.category !== 'zapatillas') {
+        canvasImg.classList.add('img-tall');
+        genImg.classList.add('img-tall');
+        genWrap.style.aspectRatio = '3/4';
+      } else {
+        canvasImg.classList.remove('img-tall');
+        genImg.classList.remove('img-tall');
+        genWrap.style.aspectRatio = '1';
+      }
+
+      const genText = document.getElementById('generated-placeholder-text');
+      genImg.style.display = 'none';
+      genText.style.display = 'block';
+      genText.innerHTML = 'Selecciona una tendencia<br>para generar';
+
+      document.getElementById('gen-prev').style.display = 'none';
+      document.getElementById('gen-next').style.display = 'none';
+      document.getElementById('gen-dots').style.display = 'none';
+      validGenImages = [];
+
+      renderTrends();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 1800);
+  }
+
+  function renderTrends() {
+    const list = document.getElementById('trend-list');
+    list.innerHTML = trends.map(t => `
+    <button class="trend-btn ${currentTrend === t.id ? 'selected' : ''}" onclick="applyTrend('${t.id}')">
+      <span class="trend-name">${t.name}</span>
+      <span class="trend-meta">${t.meta}</span>
+    </button>
+  `).join('');
+  }
+
+
+  function applyTrend(id) {
+    if (scanning) return;
+    currentTrend = id;
+    renderTrends();
+
+    const box = document.getElementById('console-box');
+    const body = document.getElementById('console-body');
+    const t = trends.find(x => x.id === id);
+
+    const genImg = document.getElementById('generated-img');
+    const genText = document.getElementById('generated-placeholder-text');
+    genImg.style.display = 'none';
+    genText.style.display = 'block';
+    genText.innerHTML = 'Listo para aplicar la tendencia.';
+
+    document.getElementById('gen-prev').style.display = 'none';
+    document.getElementById('gen-next').style.display = 'none';
+    document.getElementById('gen-dots').style.display = 'none';
+
+    box.classList.add('active');
+
+    const swatchHTML = t.swatches.map(c => `<div class="swatch" style="background:${c}"></div>`).join('');
+    
+    const reasoningHTML = t.reasoning ? `\n<div class="reasoning-box"><div class="reasoning-title">${translations[currentLang].reasoningTitle}</div><div class="reasoning-text">${t.reasoning}</div><div id="trend-chart-mount"></div></div>` : '';
+    const promptHTML = t.prompt ? `\n<div class="prompt-box"><div class="prompt-title">${translations[currentLang].promptTitle}</div><div class="prompt-text">${t.prompt}</div></div>` : '';
+
+    body.innerHTML = t.console +
+      reasoningHTML +
+      promptHTML +
+      `\n<div class="color-swatches">${swatchHTML}</div>` +
+      `<br><button id="btn-generate" style="background:#0a0a0a; color:#fff; border:none; padding:12px 16px; border-radius:4px; font-weight:700; font-family:'Inter',sans-serif; cursor:pointer; width:100%; margin-top:20px; text-transform:uppercase; letter-spacing:0.1em; font-size:11px;" onclick="generateDesign('${id}')">Generar Diseno</button>`;
+
+    renderTrendChart();
+  }
+
+  function generateDesign(id) {
+    if (scanning) return;
+    scanning = true;
+
+    const btn = document.getElementById('btn-generate');
+    if (btn) {
+      btn.disabled = true;
+      btn.innerText = 'Procesando IA...';
+    }
+
+    const overlay = document.getElementById('scan-overlay');
+    overlay.classList.add('active');
+
+    const genImg = document.getElementById('generated-img');
+    const genText = document.getElementById('generated-placeholder-text');
+    genText.innerHTML = 'IA procesando...';
+
+    setTimeout(() => {
+      scanning = false;
+      overlay.classList.remove('active');
+
+      if (btn) {
+        btn.outerHTML = `<div class="status-bar"><div class="status-dot"></div><span class="status-text">${translations[currentLang].statusCompleted}</span></div>`;
+      }
+
+      const folderName = currentProduct.name;
+      const basePath = `results/${folderName}/${id}/`;
+
+      const testImgRefs = [
+        `${basePath}1.jpg`,
+        `${basePath}2.jpg`,
+        `${basePath}3.jpg`
+      ];
+      validGenImages = [];
+      let loadedCount = 0;
+      let checkDone = false;
+
+      const checkAndRender = () => {
+        if (loadedCount === 3 && !checkDone) {
+          checkDone = true;
+          if (validGenImages.length > 0) {
+            genText.style.display = 'none';
+            genImg.style.display = 'block';
+            currentGenIdx = 0;
+            document.getElementById('gen-dots').innerHTML = validGenImages.map((_, i) => `<div class="slider-dot ${i === 0 ? 'active' : ''}" onclick="currentGenIdx=${i}; updateGenDisplay()"></div>`).join('');
+            updateGenDisplay();
+          } else {
+            genText.style.display = 'block';
+            genText.innerHTML = 'Por ahora el diseno<br>no esta disponible.';
+            genImg.style.display = 'none';
+          }
+        }
+      };
+
+      testImgRefs.forEach(src => {
+        const imgObj = new Image();
+        imgObj.onload = () => {
+          validGenImages.push(src);
+          validGenImages.sort();
+          loadedCount++;
+          checkAndRender();
+        };
+        imgObj.onerror = () => {
+          loadedCount++;
+          checkAndRender();
+        };
+        imgObj.src = src;
+      });
+
+    }, 1100);
+  }
+
+  function goHome() {
+    document.getElementById('home-view').classList.remove('hidden');
+    document.getElementById('detail-view').classList.remove('active');
+    document.getElementById('collab-view').style.display = 'none';
+    document.getElementById('nav-catalog').classList.add('active');
+    document.getElementById('nav-lab').classList.remove('active');
+    document.getElementById('nav-collab').classList.remove('active');
+  }
+
+  function goCollab() {
+    document.getElementById('home-view').classList.add('hidden');
+    document.getElementById('detail-view').classList.remove('active');
+    document.getElementById('collab-view').style.display = 'block';
+    document.getElementById('nav-catalog').classList.remove('active');
+    document.getElementById('nav-lab').classList.remove('active');
+    document.getElementById('nav-collab').classList.add('active');
+  }
+
+  function selectCollab(id) {
+    document.getElementById('collab-placeholder').innerHTML = `<span style="color:#00ff78;">Estableciendo conexion API Nano Banan...</span><br><br><span style="color:#fff;">Generando visuales de la colaboracion ${id.toUpperCase()}</span>`;
+  }
+
+  let chartInstance = null;
+  let formatChartInstance = null;
+  let ttData = [], piData = [], gtData = [];
+  let chartHidden = [false, false, false];
+
+  function toggleSeries(i) {
+    if(!chartInstance) return;
+    chartHidden[i] = !chartHidden[i];
+    chartInstance.data.datasets[i].hidden = chartHidden[i];
+    chartInstance.update();
+    const btns = ['btn-tt', 'btn-pi', 'btn-gt'];
+    const el = document.getElementById(btns[i]);
+    if(el) el.classList.toggle('muted', chartHidden[i]);
+  }
+
+  function replayAnimation() {
+    if(!chartInstance) return;
+    chartInstance.data.datasets.forEach(ds => { ds.hidden = false; });
+    chartHidden.fill(false);
+    ['btn-tt', 'btn-pi', 'btn-gt'].forEach(b => {
+      const el = document.getElementById(b);
+      if(el) el.classList.remove('muted');
+    });
+    chartInstance.update('none');
+    setTimeout(() => {
+      chartInstance.data.datasets.forEach((ds, i) => {
+        ds.data = i === 0 ? ttData : i === 1 ? piData : gtData;
+      });
+      chartInstance.update({ duration: 1800, easing: 'easeInOutQuart' });
+    }, 50);
+  }
+
+  function renderTrendChart() {
+    const mount = document.getElementById('trend-chart-mount');
+    if (!mount) return;
+    
+    mount.innerHTML = `
+      <div class="metric-grid" style="animation: fadeIn 0.5s ease;">
+        <div class="metric-card">
+          <p class="metric-label">TikTok</p>
+          <p class="metric-value" id="stat-tt">—</p>
+          <p class="metric-delta" id="delta-tt">pico: día 24</p>
+        </div>
+        <div class="metric-card">
+          <p class="metric-label">Pinterest</p>
+          <p class="metric-value" id="stat-pi">—</p>
+          <p class="metric-delta" id="delta-pi">pico: día 21</p>
+        </div>
+        <div class="metric-card">
+          <p class="metric-label">Google Trends</p>
+          <p class="metric-value" id="stat-gt">—</p>
+          <p class="metric-delta" id="delta-gt">pico: día 26</p>
+        </div>
+      </div>
+
+      <div class="chart-panels" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; align-items: stretch;">
+        <div class="panel-block" style="animation: fadeIn 0.6s ease; padding: 16px; flex: 2; min-width: 0;">
+          <div class="controls" style="margin-bottom: 16px;">
+            <button class="legend-btn" id="btn-tt" style="border-color:#111; color:#111;" onclick="toggleSeries(0)">
+              <span style="width:20px;height:3px;background:#111;display:inline-block;border-radius:2px;"></span>
+              TikTok
+            </button>
+            <button class="legend-btn" id="btn-pi" style="border-color:#555; color:#555;" onclick="toggleSeries(1)">
+              <span style="width:20px;display:inline-block;border-top:2px dashed #555;height:0;"></span>
+              Pinterest
+            </button>
+            <button class="legend-btn" id="btn-gt" style="border-color:#888; color:#888;" onclick="toggleSeries(2)">
+              <span style="width:20px;display:inline-block;border-top:3px dotted #888;height:0;"></span>
+              G. Trends
+            </button>
+            <button class="replay-btn" style="margin-left: auto;" onclick="replayAnimation()">↺ Replay</button>
+          </div>
+          <div class="chart-wrapper" style="height: 220px;">
+            <canvas id="trendChart"></canvas>
+          </div>
+        </div>
+
+        <div class="panel-block" style="animation: fadeIn 0.8s ease; padding: 16px; display: flex; flex-direction: column; gap: 16px; min-width: 250px;">
+          <div>
+            <p class="metric-label" style="font-size: 10px; margin-bottom: 2px;">Distribución por Formato</p>
+            <p style="font-size: 9px; color: #888;">Medias de interacción (30d)</p>
+          </div>
+          
+          <div style="position: relative; width: 100%; height: 140px; display: flex; justify-content: center;">
+            <canvas id="formatChart"></canvas>
+          </div>
+          
+          <div id="doughnut-legend" style="display: flex; flex-direction: column; gap: 8px; margin-top: auto;"></div>
+        </div>
+      </div>
+    `;
+
+    initTrendChartJS();
+  }
+
+  function initTrendChartJS() {
+    const days = Array.from({length: 30}, (_, i) => i + 1);
+
+    function genData(base, noise, shape) {
+      return days.map((d, i) => {
+        const t = i / 29;
+        let v = base + shape(t) + (Math.random() - .5) * noise;
+        return Math.max(0, Math.round(v));
+      });
+    }
+
+    if (currentTrend === 'blokecore') {
+      ttData = genData(400000, 150000, t => {
+        if (t < 0.3) return t * 300000;
+        if (t < 0.6) return 500000 + Math.sin((t - 0.3) * Math.PI / 0.3) * 1800000;
+        return 500000 * (1 - (t - 0.6));
+      });
+      piData = genData(200000, 40000, t => {
+        return t * 700000 + Math.sin(t * Math.PI) * 100000;
+      });
+      gtData = genData(15, 10, t => {
+        if (t > 0.5 && t < 0.7) return 60 * Math.sin((t - 0.5) * Math.PI / 0.2);
+        return t * 20;
+      });
+    } else if (currentTrend === 'gorpcore') {
+      ttData = genData(300000, 80000, t => {
+        if (t < 0.4) return 1500000 * (1 - t / 0.4);
+        return 200000 + Math.sin(t * Math.PI * 2) * 150000 + t * 400000;
+      });
+      piData = genData(100000, 50000, t => {
+        if (t < 0.7) return t * 300000;
+        return 300000 + ((t - 0.7) / 0.3) * 1200000;
+      });
+      gtData = genData(25, 5, t => {
+        return Math.pow(t, 2) * 75;
+      });
+    } else if (currentTrend === 'cyberpunk') {
+      ttData = genData(500000, 300000, t => {
+        if (t < 0.8) return Math.sin(t * Math.PI * 6) * 400000 + 400000;
+        return 800000 + ((t - 0.8) / 0.2) * 2500000;
+      });
+      piData = genData(150000, 80000, t => {
+        if (t < 0.3) return Math.sin(t * Math.PI / 0.3) * 300000;
+        return 50000;
+      });
+      gtData = genData(30, 20, t => {
+        return 20 + Math.abs(Math.sin(t * Math.PI * 4)) * 50;
+      });
+    } else {
+      ttData = genData(800000, 120000, t => Math.sin(t * Math.PI) * 1500000);
+      piData = genData(300000, 60000, t => Math.sin(t * Math.PI * 1.2) * 550000);
+      gtData = genData(20, 8, t => Math.sin(t * Math.PI) * 60);
+    }
+
+    document.getElementById('stat-tt').textContent = (Math.max(...ttData) / 1000000).toFixed(1) + 'M';
+    document.getElementById('stat-pi').textContent = (Math.max(...piData) / 1000).toFixed(0) + 'K';
+    document.getElementById('stat-gt').textContent = Math.max(...gtData);
+      
+    const ttPeak = ttData.indexOf(Math.max(...ttData)) + 1;
+    const piPeak = piData.indexOf(Math.max(...piData)) + 1;
+    const gtPeak = gtData.indexOf(Math.max(...gtData)) + 1;
+    
+    document.getElementById('delta-tt').textContent = `pico: día ${ttPeak}`;
+    document.getElementById('delta-pi').textContent = `pico: día ${piPeak}`;
+    document.getElementById('delta-gt').textContent = `pico: día ${gtPeak}`;
+
+    const axisColor = 'rgba(0,0,0,.1)';
+    const textColor = 'rgba(0,0,0,.5)';
+    const gridColor = 'rgba(0,0,0,.04)';
+
+    const ctx = document.getElementById('trendChart').getContext('2d');
+    
+    if(chartInstance) {
+        chartInstance.destroy();
+    }
+
+    const chartData = {
+      labels: days.map(d => d === 10 || d === 20 ? `Día ${d}` : ''),
+      datasets: [
+        {
+          label: 'TikTok',
+          data: ttData,
+          borderColor: '#111',
+          backgroundColor: 'rgba(0,0,0,.04)',
+          borderWidth: 2.5,
+          tension: .45,
+          pointRadius: 0,
+          pointHoverRadius: 6,
+          pointHoverBackgroundColor: '#111',
+          pointHoverBorderColor: '#fff',
+          pointHoverBorderWidth: 2,
+          fill: true,
+          yAxisID: 'yLeft',
+        },
+        {
+          label: 'Pinterest',
+          data: piData,
+          borderColor: '#555',
+          borderDash: [8, 4],
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          tension: .45,
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: '#555',
+          pointHoverBorderColor: '#fff',
+          pointHoverBorderWidth: 2,
+          fill: false,
+          yAxisID: 'yLeft',
+        },
+        {
+          label: 'Google Trends',
+          data: gtData,
+          borderColor: '#888',
+          borderDash: [3, 3],
+          backgroundColor: 'transparent',
+          borderWidth: 1.5,
+          tension: .45,
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: '#888',
+          pointHoverBorderColor: '#fff',
+          pointHoverBorderWidth: 2,
+          fill: false,
+          yAxisID: 'yRight',
+        }
+      ]
+    };
+
+    chartInstance = new Chart(ctx, {
+      type: 'line',
+      data: chartData,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 1800, easing: 'easeInOutQuart' },
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#111',
+            borderColor: '#333',
+            borderWidth: 1,
+            titleColor: '#fff',
+            bodyColor: '#aaa',
+            padding: 12,
+            titleFont: { family: 'Inter', size: 11, weight: '700' },
+            bodyFont: { family: 'Inter', size: 11 },
+            callbacks: {
+              title: items => `Día ${items[0].label.replace('Día ', '') || items[0].dataIndex + 1}`,
+              label: item => {
+                const v = item.raw;
+                if (item.datasetIndex === 2) return `  Google Trends: ${v}`;
+                return `  ${item.dataset.label}: ${v >= 1000000 ? (v / 1000000).toFixed(2) + 'M' : (v / 1000).toFixed(0) + 'K'}`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: gridColor, drawTicks: false },
+            border: { color: axisColor },
+            ticks: {
+              color: textColor,
+              font: { family: 'Inter', size: 9, weight: 700 },
+              maxRotation: 0,
+              autoSkip: false,
+              callback: function(val) { return this.getLabelForValue(val); }
+            }
+          },
+          yLeft: {
+            position: 'left',
+            grid: { color: gridColor, drawTicks: false },
+            border: { dash: [4, 4], color: 'transparent' },
+            ticks: {
+              color: textColor,
+              font: { family: 'Inter', size: 9, weight: 700 },
+              callback: v => v >= 1000000 ? (v / 1000000).toFixed(1) + 'M' : v >= 1000 ? (v / 1000).toFixed(0) + 'K' : v,
+              maxTicksLimit: 6
+            }
+          },
+          yRight: {
+            position: 'right',
+            grid: { display: false },
+            border: { color: 'transparent' },
+            ticks: {
+              color: '#888',
+              font: { family: 'Inter', size: 9, weight: 700 },
+              callback: v => 'GT ' + Math.round(v),
+              maxTicksLimit: 5
+            }
+          }
+        }
+      }
+    });
+    
+    chartHidden.fill(false);
+
+    let formatData = [];
+    if (currentTrend === 'blokecore') formatData = [43, 21, 29, 7];
+    else if (currentTrend === 'gorpcore') formatData = [34, 41, 14, 11];
+    else if (currentTrend === 'cyberpunk') formatData = [63, 11, 22, 4];
+    else formatData = [39, 26, 24, 11];
+    
+    const ctxFormat = document.getElementById('formatChart').getContext('2d');
+    if(formatChartInstance) formatChartInstance.destroy();
+    
+    const bgColors = ['#111111', '#555555', '#999999', '#dddddd'];
+    
+    formatChartInstance = new Chart(ctxFormat, {
+      type: 'doughnut',
+      data: {
+        labels: ['Vídeo corto', 'Imagen', 'Carrusel', 'Texto'],
+        datasets: [{
+          data: formatData,
+          backgroundColor: bgColors,
+          borderWidth: 2,
+          borderColor: '#fff',
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '75%',
+        animation: {
+          animateScale: true,
+          animateRotate: true,
+          duration: 1800,
+          easing: 'easeInOutQuart'
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#111',
+            titleFont: { family: 'Inter', size: 10 },
+            bodyFont: { family: 'Inter', size: 11, weight: '700' },
+            padding: 8,
+            callbacks: {
+              label: function(context) { return ' ' + context.label + ': ' + context.raw + '%'; }
+            }
+          }
+        }
+      }
+    });
+
+    const legendMount = document.getElementById('doughnut-legend');
+    if (legendMount) {
+        legendMount.innerHTML = ['Vídeo corto', 'Imagen', 'Carrusel', 'Texto'].map((label, i) => `
+          <div style="display:flex; align-items:center; justify-content:space-between; font-size:11px; font-family:'Inter', sans-serif;">
+            <div style="display:flex; align-items:center; gap:8px;">
+               <div style="width:12px; height:12px; border-radius:50%; background:${bgColors[i]};"></div>
+               <span style="color:#555; font-weight:500;">${label}</span>
+            </div>
+            <span style="font-weight:700; color:#111;">${formatData[i]}%</span>
+          </div>
+        `).join('');
+    }
+  }
+
+  initLanguage();
+</script>
+</body>
+</html>
